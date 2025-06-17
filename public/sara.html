@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hypnose et Éveil Intérieur</title>
+  <style>
+    /* Reset & base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #2c2c2c;
+      background: #fff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+    a {
+      color: #4a90e2;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #357ABD;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      box-shadow: 0 2px 5px rgb(0 0 0 / 0.05);
+      z-index: 1000;
+    }
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #2c2c2c;
+      user-select: none;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(120deg, #c6f0e1 0%, #e4f4f2 100%);
+      text-align: center;
+      padding: 6rem 1rem 4rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: #2c2c2c;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s forwards;
+      animation-delay: 0.3s;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      color: #4a4a4a;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s forwards;
+      animation-delay: 0.6s;
+    }
+    .btn-primary {
+      background-color: #4a90e2;
+      border: none;
+      color: white;
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+      border-radius: 35px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 8px 15px rgba(74,144,226,0.3);
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s forwards;
+      animation-delay: 0.9s;
+    }
+    .btn-primary:hover {
+      background-color: #357ABD;
+      box-shadow: 0 12px 20px rgba(53,122,189,0.5);
+      transform: scale(1.05);
+    }
+
+    /* Sections */
+    section {
+      padding: 4rem 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2.section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #2c2c2c;
+      position: relative;
+    }
+    h2.section-title::after {
+      content: "";
+      width: 80px;
+      height: 3px;
+      background: #4a90e2;
+      display: block;
+      margin: 0.5rem auto 0;
+      border-radius: 2px;
+    }
+
+    /* About */
+    .about p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    /* Accompagnements */
+    .services-grid {
+      display: grid;
+      gap: 2.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .service-card {
+      background: #f9fdfb;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgb(0 0 0 / 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgb(0 0 0 / 0.1);
+    }
+    .service-card h3 {
+      margin-bottom: 1rem;
+      color: #2c2c2c;
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+    .service-card p {
+      color: #666;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    /* Formulaire */
+    form {
+      max-width: 450px;
+      margin: 0 auto;
+      background: #f1f7f5;
+      padding: 2.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgb(0 0 0 / 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    input, textarea {
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      border: 1.8px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
+      resize: vertical;
+      transition: border-color 0.3s ease;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #4a90e2;
+      box-shadow: 0 0 8px rgba(74,144,226,0.4);
+    }
+    button[type="submit"] {
+      background-color: #4a90e2;
+      color: white;
+      font-weight: 700;
+      padding: 1rem;
+      border: none;
+      border-radius: 35px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(74,144,226,0.3);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    button[type="submit"]:hover {
+      background-color: #357ABD;
+      box-shadow: 0 12px 20px rgba(53,122,189,0.5);
+      transform: scale(1.05);
+    }
+    .form-message {
+      text-align: center;
+      font-weight: 600;
+      color: green;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #888;
+      font-size: 0.9rem;
+      border-top: 1px solid #eee;
+      user-select: none;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav ul {
+        gap: 1.2rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      section {
+        padding: 3rem 1rem;
+      }
+      form {
+        width: 90%;
+      }
+    }
+    @media (max-width: 480px) {
+      nav {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      nav ul {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .hero {
+        padding: 4rem 1rem 3rem;
+      }
+    }
+  </style>
+  <!-- Calendly inline widget script -->
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Hypnose & Éveil Intérieur</div>
+        <ul>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#services">Accompagnements</a></li>
+          <li><a href="#appointment">Rendez-vous</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Se reconnecter à soi dans la douceur</h1>
+    <p>Praticienne en hypnose, je vous accompagne vers la paix intérieure et la transformation en douceur.</p>
+    <button class="btn-primary" id="open-calendly">Prendre rendez-vous</button>
+  </section>
+
+  <section id="about" class="about">
+    <div class="container">
+      <h2 class="section-title">À propos</h2>
+      <p>Je suis praticienne en hypnose, passionnée par l’accompagnement de celles et ceux qui souhaitent se reconnecter à leur être profond, dépasser leurs blocages, et avancer vers une vie plus libre, apaisée et alignée.</p>
+      <p>À travers une approche douce, respectueuse et intuitive, je vous invite à explorer les ressources de votre inconscient pour retrouver votre élan vital, libérer ce qui vous freine et vous ouvrir à une nouvelle conscience de vous-même.</p>
+    </div>
+  </section>
+
+  <section id="services" class="services">
+    <div class="container">
+      <h2 class="section-title">Accompagnements</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Stress & anxiété</h3>
+          <p>Fatigue émotionnelle, burn-out, gestion du stress.</p>
+        </div>
+        <div class="service-card">
+          <h3>Insomnie & douleurs chroniques</h3>
+          <p>Amélioration du sommeil, apaisement des douleurs.</p>
+        </div>
+        <div class="service-card">
+          <h3>Compulsions & blocages inconscients</h3>
+          <p>Alimentation, schémas répétitifs, blocages émotionnels.</p>
+        </div>
+        <div class="service-card">
+          <h3>Hypnose périnatale & transitions</h3>
+          <p>Préparation à l’accouchement et accompagnement des changements de vie.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="appointment" class="appointment">
+    <div class="container">
+      <h2 class="section-title">Prendre rendez-vous</h2>
+      <p style="text-align:center; max-width: 600px; margin: 0 auto 1.5rem;">
+        Utilisez le widget Calendly ci-dessous pour choisir votre créneau facilement.
+      </p>
+      <div id="calendly-inline-widget" style="min-width:320px;height:630px;"></div>
+      <p style="text-align:center; margin-top: 1.5rem;">Ou contactez-moi directement :</p>
+      <p style="text-align:center; font-weight: 600;">📞 [28458393] &nbsp;&nbsp; | &nbsp;&nbsp; 📧 <a href="mailto:"></a></p>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 class="section-title">Contact</h2>
+      <form id="contact-form">
+        <input type="text" id="name" name="name" placeholder="Votre nom" required />
+        <input type="email" id="email" name="email" placeholder="Votre email" required />
+        <textarea id="message" name="message" rows="5" placeholder="Votre message" required></textarea>
+        <button type="submit">Envoyer</button>
+        <p class="form-message" id="form-message">Merci pour votre message, je vous recontacte bientôt !</p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Hypnose et Éveil Intérieur — Tous droits réservés
+  </footer>
+
+  <script>
+    // Fade-in sections on scroll
+    const sections = document.querySelectorAll('section');
+    function revealSections() {
+      const triggerBottom = window.innerHeight * 0.85;
+      sections.forEach(section => {
+        const top = section.getBoundingClientRect().top;
+        if (top < triggerBottom) {
+          section.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealSections);
+    window.addEventListener('load', revealSections);
+
+    // Contact form simulation
+    const form = document.getElementById('contact-form');
+    const messageEl = document.getElementById('form-message');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      messageEl.style.display = 'block';
+      form.reset();
+      setTimeout(() => {
+        messageEl.style.display = 'none';
+      }, 5000);
+    });
+
+    // Calendly inline widget setup
+    // Remplace "tonlien" par ton lien Calendly personnalisé
+    const calendlyUrl = "https://calendly.com/sarrahlikesanime";
+
+    window.onload = () => {
+      const calendlyDiv = document.getElementById('calendly-inline-widget');
+      Calendly.initInlineWidget({
+        url: calendlyUrl,
+        parentElement: calendlyDiv,
+        prefill: {},
+        utm: {}
+      });
+    };
+  </script>
+</body>
+</html>
